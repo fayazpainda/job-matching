@@ -54,6 +54,26 @@ nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 40px
 .cand-select{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:inherit;background:var(--white);color:var(--text);cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%2394a3b8'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;transition:border-color .2s}
 .cand-select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
 
+/* Candidate search */
+.cand-search-wrap{position:relative}
+.cand-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;fill:var(--text3);pointer-events:none}
+.cand-search{width:100%;padding:10px 36px 10px 36px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:inherit;background:var(--white);color:var(--text);transition:border-color .2s}
+.cand-search:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.cand-search::placeholder{color:var(--text3)}
+.cand-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:22px;height:22px;border:none;border-radius:50%;background:var(--bg2);color:var(--text2);font-size:16px;line-height:1;cursor:pointer;display:none;align-items:center;justify-content:center;font-family:inherit;padding:0}
+.cand-clear:hover{background:var(--border2);color:var(--text)}
+.cand-clear.show{display:flex}
+.cand-list{margin-top:6px;max-height:240px;overflow-y:auto;border:1.5px solid var(--border);border-radius:var(--radius);background:var(--white);display:none;box-shadow:var(--shadow-md)}
+.cand-list.open{display:block}
+.cand-item{padding:9px 14px;cursor:pointer;border-bottom:1px solid var(--bg2);transition:background .1s}
+.cand-item:last-of-type{border-bottom:none}
+.cand-item:hover{background:var(--blue-bg)}
+.cand-item.selected{background:var(--blue-bg)}
+.cand-item.hidden{display:none}
+.cand-item-name{font-size:13px;font-weight:600;color:var(--text)}
+.cand-item-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.cand-empty{padding:18px 14px;text-align:center;font-size:12px;color:var(--text3)}
+
 .cand-preview{margin-top:10px;padding:12px 16px;background:var(--bg);border-radius:8px;display:none}
 .cand-preview.show{display:block}
 .cand-preview p{font-size:13px;color:var(--text2);margin-bottom:8px}
@@ -217,14 +237,20 @@ tbody td{padding:14px 16px;font-size:13px;border-bottom:1px solid var(--bg2);ver
       <!-- Candidate -->
       <div class="ctrl-candidate">
         <div class="ctrl-label">Candidate</div>
-        <select class="cand-select" id="candSelect" onchange="onCandChange()">
-          <option value="">Choose a candidate...</option>
+        <div class="cand-search-wrap">
+          <svg class="cand-search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input type="text" class="cand-search" id="candSearch" placeholder="Search by name, skill, location, or education..." oninput="filterCands()" onfocus="openCandList()" autocomplete="off">
+          <button type="button" class="cand-clear" id="candClear" onclick="clearCand()" title="Clear">&times;</button>
+        </div>
+        <div class="cand-list" id="candList">
           {% for c in candidates %}
-          <option value="{{c.id}}" data-skills="{{c.skills}}" data-intro="{{c.intro}}" data-salary="{{c.salary}}" data-exp="{{c.experience}}" data-loc="{{c.location}}" data-edu="{{c.education}}">
-            {{c.name}} — {{c.education}}, {{c.experience}}y exp, {{c.location}}
-          </option>
+          <div class="cand-item" data-id="{{c.id}}" data-name="{{c.name}}" data-skills="{{c.skills}}" data-intro="{{c.intro}}" data-salary="{{c.salary}}" data-exp="{{c.experience}}" data-loc="{{c.location}}" data-edu="{{c.education}}" onclick="pickCand(this)">
+            <div class="cand-item-name">{{c.name}}</div>
+            <div class="cand-item-meta">{{c.education}} &middot; {{c.experience}}y exp &middot; {{c.location}}</div>
+          </div>
           {% endfor %}
-        </select>
+          <div class="cand-empty" id="candEmpty" style="display:none">No candidates match your search.</div>
+        </div>
         <div class="cand-preview" id="candPreview">
           <p id="candIntro"></p>
           <div class="cand-tags" id="candSkills"></div>
@@ -383,20 +409,60 @@ let selectedCandId = null;
 let lastResults = [];
 let ch1 = null, ch2 = null;
 
-function onCandChange() {
-  const sel = document.getElementById('candSelect');
-  const opt = sel.options[sel.selectedIndex];
-  const prev = document.getElementById('candPreview');
-  if (!opt.value) { prev.classList.remove('show'); selectedCandId = null; return; }
-  selectedCandId = opt.value;
-  document.getElementById('candIntro').textContent = opt.dataset.intro;
-  document.getElementById('candSkills').innerHTML = opt.dataset.skills.split(',').map(s => '<span>'+s.trim()+'</span>').join('');
-  document.getElementById('candStats').innerHTML =
-    '<span>Expected: <strong>$'+Number(opt.dataset.salary).toLocaleString()+'</strong></span>' +
-    '<span>Experience: <strong>'+opt.dataset.exp+' years</strong></span>' +
-    '<span>Education: <strong>'+opt.dataset.edu+'</strong></span>';
-  prev.classList.add('show');
+function openCandList() {
+  document.getElementById('candList').classList.add('open');
 }
+function closeCandList() {
+  document.getElementById('candList').classList.remove('open');
+}
+
+function filterCands() {
+  const q = document.getElementById('candSearch').value.trim().toLowerCase();
+  const items = document.querySelectorAll('#candList .cand-item');
+  document.getElementById('candClear').classList.toggle('show', q.length > 0);
+  openCandList();
+  let visible = 0;
+  items.forEach(it => {
+    const hay = (it.dataset.name + ' ' + it.dataset.edu + ' ' + it.dataset.loc + ' ' + it.dataset.skills + ' ' + it.dataset.exp + 'y').toLowerCase();
+    const match = !q || hay.includes(q);
+    it.classList.toggle('hidden', !match);
+    if (match) visible++;
+  });
+  document.getElementById('candEmpty').style.display = visible === 0 ? 'block' : 'none';
+}
+
+function pickCand(el) {
+  selectedCandId = el.dataset.id;
+  document.querySelectorAll('#candList .cand-item').forEach(it => it.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('candSearch').value = el.dataset.name;
+  document.getElementById('candClear').classList.add('show');
+
+  document.getElementById('candIntro').textContent = el.dataset.intro;
+  document.getElementById('candSkills').innerHTML = el.dataset.skills.split(',').map(s => '<span>'+s.trim()+'</span>').join('');
+  document.getElementById('candStats').innerHTML =
+    '<span>Expected: <strong>$'+Number(el.dataset.salary).toLocaleString()+'</strong></span>' +
+    '<span>Experience: <strong>'+el.dataset.exp+' years</strong></span>' +
+    '<span>Education: <strong>'+el.dataset.edu+'</strong></span>';
+  document.getElementById('candPreview').classList.add('show');
+  closeCandList();
+}
+
+function clearCand() {
+  selectedCandId = null;
+  document.getElementById('candSearch').value = '';
+  document.getElementById('candClear').classList.remove('show');
+  document.getElementById('candPreview').classList.remove('show');
+  document.querySelectorAll('#candList .cand-item').forEach(it => { it.classList.remove('selected', 'hidden'); });
+  document.getElementById('candEmpty').style.display = 'none';
+  closeCandList();
+  document.getElementById('candSearch').focus();
+}
+
+document.addEventListener('click', (e) => {
+  const wrap = document.querySelector('.ctrl-candidate');
+  if (wrap && !wrap.contains(e.target)) closeCandList();
+});
 
 function selectAllLocs() {
   const sel = document.getElementById('fLoc');
