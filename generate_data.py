@@ -35,6 +35,25 @@ COMPANIES = {
     "Samsung": "San Jose, CA", "Sony": "San Mateo, CA",
     "Qualcomm": "San Diego, CA", "AMD": "Santa Clara, CA",
     "Broadcom": "San Jose, CA", "Arm": "San Jose, CA",
+    "Roblox": "San Mateo, CA", "Unity": "San Francisco, CA",
+    "Epic Games": "Cary, NC", "Riot Games": "Los Angeles, CA",
+    "Activision Blizzard": "Santa Monica, CA",
+    "Wise": "Remote", "Brex": "San Francisco, CA",
+    "Mercury": "Remote", "Chime": "San Francisco, CA",
+    "Affirm": "San Francisco, CA", "Klarna": "Remote",
+    "Lucid Motors": "Newark, CA", "Joby Aviation": "Santa Cruz, CA",
+    "Form Energy": "Somerville, MA", "QuantumScape": "San Jose, CA",
+    "Moderna": "Cambridge, MA", "23andMe": "Sunnyvale, CA",
+    "Recursion": "Salt Lake City, UT", "Tempus": "Chicago, IL",
+    "Sentry": "San Francisco, CA", "Honeycomb": "Remote",
+    "Postman": "San Francisco, CA", "Linear": "Remote",
+    "Retool": "San Francisco, CA", "Replit": "San Francisco, CA",
+    "DoorDash": "San Francisco, CA", "Instacart": "San Francisco, CA",
+    "Wayfair": "Boston, MA", "Etsy": "Brooklyn, NY",
+    "Reddit": "San Francisco, CA", "Discord": "San Francisco, CA",
+    "Khan Academy": "Mountain View, CA", "Duolingo": "Pittsburgh, PA",
+    "Two Sigma": "New York, NY", "Jane Street": "New York, NY",
+    "Citadel": "Chicago, IL", "Hudson River Trading": "New York, NY",
 }
 
 EXTRA_LOCATIONS = [
@@ -122,6 +141,48 @@ JOB_TEMPLATES = [
     {"title": "Embedded Systems Engineer", "skills": "C,C++,RTOS,ARM,Linux,Hardware,Firmware", "exp": 4, "edu": "Bachelor", "sal": (140000, 225000)},
     {"title": "FPGA Engineer", "skills": "VHDL,Verilog,FPGA,Xilinx,Signal Processing,C++", "exp": 4, "edu": "Master", "sal": (150000, 245000)},
     {"title": "Robotics Software Engineer", "skills": "C++,Python,ROS,Computer Vision,SLAM,Linux,Control Systems", "exp": 4, "edu": "Master", "sal": (160000, 260000)},
+    # Leadership / Senior IC
+    {"title": "Engineering Manager (Backend)", "skills": "Python,Go,Leadership,Hiring,Architecture,Mentorship,Agile,Roadmapping", "exp": 8, "edu": "Bachelor", "sal": (210000, 320000)},
+    {"title": "Engineering Manager (Frontend)", "skills": "React,TypeScript,Leadership,Mentorship,Architecture,Design Systems,Hiring", "exp": 8, "edu": "Bachelor", "sal": (205000, 310000)},
+    {"title": "Staff Software Engineer", "skills": "Architecture,Distributed Systems,Mentorship,Go,Python,Design Docs,Leadership", "exp": 9, "edu": "Bachelor", "sal": (230000, 360000)},
+    {"title": "Principal Engineer", "skills": "Architecture,Systems Design,Mentorship,Strategy,Cross-team,Leadership", "exp": 12, "edu": "Bachelor", "sal": (270000, 420000)},
+    {"title": "Director of Engineering", "skills": "Leadership,Strategy,Hiring,Org Design,Roadmapping,Cross-functional,Budgeting", "exp": 12, "edu": "Bachelor", "sal": (280000, 450000)},
+    # Gaming
+    {"title": "Game Engine Programmer", "skills": "C++,Unreal,Graphics,Math,Performance,Multithreading,Physics", "exp": 4, "edu": "Bachelor", "sal": (160000, 250000)},
+    {"title": "Game Server Engineer", "skills": "Go,C++,Networking,Distributed Systems,Linux,Multiplayer,Performance", "exp": 4, "edu": "Bachelor", "sal": (155000, 245000)},
+    {"title": "Gameplay Programmer (Unity)", "skills": "C#,Unity,Game Design,Animation,Physics,Mobile,Testing", "exp": 3, "edu": "Bachelor", "sal": (130000, 200000)},
+    {"title": "Graphics Engineer", "skills": "C++,HLSL,GLSL,Vulkan,DirectX,Graphics,Math,Performance", "exp": 5, "edu": "Bachelor", "sal": (175000, 280000)},
+    # Quant / Trading
+    {"title": "Quantitative Developer", "skills": "C++,Python,Low Latency,Linux,FIX,Networking,Algorithms,Math", "exp": 4, "edu": "Master", "sal": (200000, 380000)},
+    {"title": "Quant Researcher", "skills": "Python,Statistics,Math,Machine Learning,Time Series,R,Backtesting", "exp": 4, "edu": "PhD", "sal": (220000, 420000)},
+    {"title": "HFT Engineer", "skills": "C++,Linux,Networking,Kernel,FPGA,Performance,Latency", "exp": 5, "edu": "Bachelor", "sal": (240000, 450000)},
+    # Bio / Climate
+    {"title": "Bioinformatics Engineer", "skills": "Python,R,Genomics,Pandas,Snakemake,AWS,Biology,Statistics", "exp": 3, "edu": "Master", "sal": (140000, 220000)},
+    {"title": "Computational Biologist", "skills": "Python,R,Bioinformatics,Statistics,Machine Learning,Biology,Genomics", "exp": 4, "edu": "PhD", "sal": (155000, 250000)},
+    {"title": "Climate Tech Software Engineer", "skills": "Python,GIS,Geospatial,PostgreSQL,AWS,Data Pipelines,Numerical Computing", "exp": 4, "edu": "Bachelor", "sal": (150000, 230000)},
+    # Autonomous / Mapping
+    {"title": "Autonomous Vehicle Engineer", "skills": "C++,Python,ROS,Perception,SLAM,Sensor Fusion,Linux,Math", "exp": 4, "edu": "Master", "sal": (175000, 285000)},
+    {"title": "Mapping Engineer", "skills": "Python,C++,GIS,Geospatial,Geometry,PostGIS,Point Clouds,Algorithms", "exp": 4, "edu": "Bachelor", "sal": (155000, 235000)},
+    # Platform / Infra deep
+    {"title": "Database Engineer", "skills": "PostgreSQL,MySQL,Query Optimization,Replication,Linux,Performance,Backup", "exp": 5, "edu": "Bachelor", "sal": (165000, 255000)},
+    {"title": "Distributed Systems Engineer", "skills": "Go,Rust,Consensus,Raft,Distributed,Linux,Networking,Storage", "exp": 6, "edu": "Bachelor", "sal": (190000, 300000)},
+    {"title": "Compiler Engineer", "skills": "C++,LLVM,Rust,Compilers,Code Generation,Optimization,Linux", "exp": 5, "edu": "Master", "sal": (180000, 290000)},
+    {"title": "Kernel Engineer", "skills": "C,Linux Kernel,eBPF,Drivers,Performance,Debugging,Networking", "exp": 6, "edu": "Bachelor", "sal": (190000, 305000)},
+    {"title": "Build & Release Engineer", "skills": "Bazel,Make,CI/CD,Jenkins,Python,Linux,Containers,Monorepo", "exp": 4, "edu": "Bachelor", "sal": (145000, 220000)},
+    {"title": "API Platform Engineer", "skills": "Go,Python,gRPC,OpenAPI,GraphQL,Auth,Rate Limiting,Observability", "exp": 4, "edu": "Bachelor", "sal": (160000, 240000)},
+    # Emerging tech
+    {"title": "AR/VR Engineer", "skills": "C++,Unity,Unreal,3D Graphics,Spatial Computing,Math,SDK", "exp": 4, "edu": "Bachelor", "sal": (165000, 260000)},
+    {"title": "Computer Graphics Researcher", "skills": "C++,GLSL,HLSL,Math,Rendering,Ray Tracing,Real-time Graphics", "exp": 5, "edu": "PhD", "sal": (190000, 310000)},
+    {"title": "Audio DSP Engineer", "skills": "C++,DSP,Audio,Signal Processing,Math,SIMD,Real-time", "exp": 5, "edu": "Master", "sal": (165000, 255000)},
+    {"title": "Quantum Computing Engineer", "skills": "Python,Qiskit,Cirq,Linear Algebra,Physics,Math,Quantum Algorithms", "exp": 4, "edu": "PhD", "sal": (170000, 280000)},
+    # DevRel / Customer-facing
+    {"title": "Developer Advocate", "skills": "Public Speaking,Technical Writing,Python,JavaScript,Demos,Community,Conferences", "exp": 4, "edu": "Bachelor", "sal": (140000, 215000)},
+    {"title": "Solutions Engineer", "skills": "Python,APIs,SQL,Communication,Pre-sales,Demos,Architecture,Customer Success", "exp": 4, "edu": "Bachelor", "sal": (145000, 225000)},
+    {"title": "Forward Deployed Engineer", "skills": "Python,SQL,Data Pipelines,Customer-facing,Communication,Travel,Problem Solving", "exp": 3, "edu": "Bachelor", "sal": (155000, 240000)},
+    # More frontend / fullstack variety
+    {"title": "WebGL / 3D Engineer", "skills": "JavaScript,TypeScript,Three.js,WebGL,WebGPU,Math,Performance,Shaders", "exp": 4, "edu": "Bachelor", "sal": (155000, 240000)},
+    {"title": "Design Engineer", "skills": "React,TypeScript,CSS,Figma,Animation,Design Systems,Storybook,A11y", "exp": 4, "edu": "Bachelor", "sal": (155000, 235000)},
+    {"title": "Senior PostgreSQL DBA", "skills": "PostgreSQL,Linux,Backup,Replication,pgBouncer,Performance,Monitoring,SQL", "exp": 6, "edu": "Bachelor", "sal": (175000, 270000)},
 ]
 
 DESCRIPTIONS = {
@@ -142,27 +203,47 @@ DESCRIPTIONS = {
     "Blockchain": "Develop and audit smart contracts, build decentralized applications, and contribute to protocol design and security.",
     "Systems": "Optimize systems for performance and reliability, work on low-level software, and solve complex distributed systems challenges.",
     "Embedded": "Develop firmware and embedded software for hardware products, optimize for power and performance, and debug hardware-software interfaces.",
+    "Leadership": "Lead and grow a high-performing engineering team, drive technical direction, partner with product and design, and own hiring and mentorship.",
+    "StaffIC": "Operate as a senior individual contributor across teams: drive architectural decisions, mentor engineers, and own large multi-quarter initiatives.",
+    "Gaming": "Build the systems behind immersive gameplay — engine, networking, or graphics — and ship features that millions of players experience daily.",
+    "Quant": "Design low-latency systems and quantitative strategies for live markets, balancing performance, risk, and statistical rigor.",
+    "Bio": "Combine software engineering with biology to analyze experimental data, build pipelines for sequencing or drug discovery, and accelerate scientific work.",
+    "Climate": "Build software that addresses climate change — from geospatial analytics to grid optimization — partnering closely with domain experts.",
+    "AV": "Build perception, planning, or mapping systems that move autonomous vehicles toward safe, large-scale deployment.",
+    "Graphics": "Push the state of the art in real-time rendering: shaders, ray tracing, and GPU pipelines that ship in millions of devices.",
+    "DevRel": "Engage developers through writing, talks, and demos; turn user feedback into product priorities and grow a thriving community.",
+    "Solutions": "Partner with customers to integrate, deploy, and extend the product; translate ambiguous business needs into working technical solutions.",
 }
 
 def get_desc(title):
     t = title.lower()
+    if "engineering manager" in t or "director" in t: return DESCRIPTIONS["Leadership"]
+    if "staff" in t or "principal" in t: return DESCRIPTIONS["StaffIC"]
+    if "game" in t or "graphics" in t and ("research" not in t): return DESCRIPTIONS["Gaming"]
+    if "quant" in t or "hft" in t or "trading" in t: return DESCRIPTIONS["Quant"]
+    if "bio" in t: return DESCRIPTIONS["Bio"]
+    if "climate" in t: return DESCRIPTIONS["Climate"]
+    if "autonomous" in t or "mapping" in t: return DESCRIPTIONS["AV"]
+    if "ar/vr" in t or "compiler" in t or "kernel" in t: return DESCRIPTIONS["Systems"]
+    if "developer advocate" in t or "devrel" in t: return DESCRIPTIONS["DevRel"]
+    if "solutions engineer" in t or "forward deployed" in t: return DESCRIPTIONS["Solutions"]
     if "llm" in t or "nlp" in t: return DESCRIPTIONS["LLM"]
     if "ml" in t or "machine learning" in t or "recommendation" in t: return DESCRIPTIONS["ML"]
     if "ai" in t or "research" in t or "vision" in t: return DESCRIPTIONS["AI"]
     if "data scientist" in t or "data analyst" in t or "analytics" in t: return DESCRIPTIONS["Data"]
     if "data engineer" in t: return DESCRIPTIONS["DevOps"]
-    if "frontend" in t or "react" in t or "vue" in t or "angular" in t or "ui engineer" in t: return DESCRIPTIONS["Frontend"]
+    if "frontend" in t or "react" in t or "vue" in t or "angular" in t or "ui engineer" in t or "design engineer" in t or "webgl" in t: return DESCRIPTIONS["Frontend"]
     if "full stack" in t or "mern" in t: return DESCRIPTIONS["Full Stack"]
     if "ios" in t or "android" in t or "mobile" in t or "flutter" in t or "react native" in t: return DESCRIPTIONS["Mobile"]
-    if "devops" in t or "platform" in t or "infrastructure" in t or "cloud" in t: return DESCRIPTIONS["DevOps"]
+    if "devops" in t or "platform" in t or "infrastructure" in t or "cloud" in t or "build & release" in t: return DESCRIPTIONS["DevOps"]
     if "sre" in t or "reliability" in t: return DESCRIPTIONS["SRE"]
     if "security" in t: return DESCRIPTIONS["Security"]
     if "qa" in t or "sdet" in t or "automation" in t: return DESCRIPTIONS["QA"]
     if "product manager" in t or "program manager" in t: return DESCRIPTIONS["Product"]
     if "designer" in t or "ux" in t: return DESCRIPTIONS["Design"]
     if "blockchain" in t or "smart contract" in t: return DESCRIPTIONS["Blockchain"]
-    if "embedded" in t or "fpga" in t or "robotics" in t: return DESCRIPTIONS["Embedded"]
-    if "rust" in t or "c++" in t or "systems" in t: return DESCRIPTIONS["Systems"]
+    if "embedded" in t or "fpga" in t or "robotics" in t or "firmware" in t: return DESCRIPTIONS["Embedded"]
+    if "rust" in t or "c++" in t or "systems" in t or "distributed" in t or "database" in t or "dba" in t: return DESCRIPTIONS["Systems"]
     return DESCRIPTIONS["Backend"]
 
 # Generate jobs
@@ -324,6 +405,68 @@ CANDIDATE_PROFILES = [
     {"skills": "Elixir,Phoenix,PostgreSQL,LiveView,Docker,Distributed Systems", "title_hint": "Elixir Backend", "sal_range": (140000, 215000)},
     {"skills": "Python,Django,Celery,PostgreSQL,Elasticsearch,Docker,AWS,Monitoring", "title_hint": "Python Search", "sal_range": (145000, 215000)},
     {"skills": "JavaScript,TypeScript,Svelte,SvelteKit,CSS,TailwindCSS,Testing", "title_hint": "Svelte Frontend", "sal_range": (120000, 180000)},
+    # --- Leadership / senior IC ---
+    {"skills": "Leadership,Hiring,Architecture,Mentorship,Python,Go,Agile,Roadmapping", "title_hint": "Engineering Manager", "sal_range": (200000, 290000)},
+    {"skills": "Leadership,Mentorship,React,TypeScript,Design Systems,Architecture,Hiring", "title_hint": "Frontend Manager", "sal_range": (195000, 285000)},
+    {"skills": "Architecture,Distributed Systems,Mentorship,Go,Python,Design Docs,Leadership", "title_hint": "Staff Engineer", "sal_range": (220000, 330000)},
+    {"skills": "Architecture,Systems Design,Strategy,Cross-team,Mentorship,Leadership", "title_hint": "Principal Engineer", "sal_range": (250000, 380000)},
+    {"skills": "Leadership,Strategy,Hiring,Org Design,Budgeting,Cross-functional", "title_hint": "Director of Engineering", "sal_range": (270000, 410000)},
+    # --- Junior IC ---
+    {"skills": "Python,Flask,SQL,Git,HTML,CSS,JavaScript", "title_hint": "Junior Backend", "sal_range": (75000, 105000)},
+    {"skills": "JavaScript,React,HTML,CSS,Git,REST,Bootstrap", "title_hint": "Junior Frontend", "sal_range": (70000, 100000)},
+    {"skills": "Python,Pandas,SQL,Excel,Statistics,Tableau,Git", "title_hint": "Junior Data Analyst", "sal_range": (70000, 95000)},
+    {"skills": "Java,Spring,MySQL,Git,Maven,JUnit", "title_hint": "Junior Java", "sal_range": (75000, 105000)},
+    # --- Gaming ---
+    {"skills": "C++,Unreal,Graphics,Math,Performance,Multithreading,Physics", "title_hint": "Game Engine Programmer", "sal_range": (150000, 230000)},
+    {"skills": "C#,Unity,Game Design,Animation,Physics,Mobile,Testing", "title_hint": "Unity Gameplay", "sal_range": (125000, 195000)},
+    {"skills": "Go,C++,Networking,Distributed Systems,Linux,Multiplayer,Performance", "title_hint": "Game Backend", "sal_range": (150000, 235000)},
+    {"skills": "C++,HLSL,GLSL,Vulkan,DirectX,Graphics,Math", "title_hint": "Graphics Programmer", "sal_range": (170000, 270000)},
+    # --- Quant / Trading ---
+    {"skills": "C++,Python,Low Latency,Linux,Networking,Algorithms,Math", "title_hint": "Quantitative Developer", "sal_range": (200000, 350000)},
+    {"skills": "Python,Statistics,Math,Machine Learning,Time Series,R,Backtesting", "title_hint": "Quant Researcher", "sal_range": (220000, 380000)},
+    {"skills": "C++,Linux,Networking,Kernel,FPGA,Performance,Latency", "title_hint": "HFT Engineer", "sal_range": (240000, 420000)},
+    # --- Bio / Climate / Hardware ---
+    {"skills": "Python,R,Genomics,Pandas,Snakemake,AWS,Biology,Statistics", "title_hint": "Bioinformatics", "sal_range": (130000, 200000)},
+    {"skills": "Python,R,Bioinformatics,Statistics,Machine Learning,Biology,Genomics", "title_hint": "Computational Biologist", "sal_range": (150000, 235000)},
+    {"skills": "Python,GIS,Geospatial,PostgreSQL,AWS,Data Pipelines,Numerical Computing", "title_hint": "Climate Tech Engineer", "sal_range": (140000, 215000)},
+    {"skills": "C++,Python,ROS,Perception,SLAM,Sensor Fusion,Linux", "title_hint": "AV Perception", "sal_range": (175000, 275000)},
+    {"skills": "Python,C++,GIS,Geospatial,PostGIS,Point Clouds,Algorithms", "title_hint": "Mapping Engineer", "sal_range": (150000, 225000)},
+    # --- Platform deep ---
+    {"skills": "PostgreSQL,MySQL,Query Optimization,Replication,Linux,Performance,Backup", "title_hint": "Database Engineer", "sal_range": (160000, 240000)},
+    {"skills": "Go,Rust,Consensus,Raft,Distributed,Linux,Networking,Storage", "title_hint": "Distributed Systems", "sal_range": (180000, 280000)},
+    {"skills": "C++,LLVM,Rust,Compilers,Code Generation,Optimization,Linux", "title_hint": "Compiler Engineer", "sal_range": (175000, 280000)},
+    {"skills": "C,Linux Kernel,eBPF,Drivers,Performance,Debugging,Networking", "title_hint": "Kernel Engineer", "sal_range": (180000, 290000)},
+    {"skills": "Bazel,Make,CI/CD,Jenkins,Python,Linux,Containers,Monorepo", "title_hint": "Build Engineer", "sal_range": (140000, 215000)},
+    {"skills": "Go,Python,gRPC,OpenAPI,GraphQL,Auth,Rate Limiting,Observability", "title_hint": "API Platform", "sal_range": (155000, 230000)},
+    # --- Emerging ---
+    {"skills": "C++,Unity,Unreal,3D Graphics,Spatial Computing,Math,SDK", "title_hint": "AR/VR Engineer", "sal_range": (160000, 245000)},
+    {"skills": "C++,GLSL,HLSL,Math,Rendering,Ray Tracing,Real-time Graphics", "title_hint": "Graphics Researcher", "sal_range": (180000, 290000)},
+    {"skills": "C++,DSP,Audio,Signal Processing,Math,SIMD,Real-time", "title_hint": "Audio DSP", "sal_range": (155000, 240000)},
+    {"skills": "Python,Qiskit,Cirq,Linear Algebra,Physics,Math,Quantum Algorithms", "title_hint": "Quantum Engineer", "sal_range": (165000, 260000)},
+    # --- DevRel / Customer-facing ---
+    {"skills": "Public Speaking,Technical Writing,Python,JavaScript,Demos,Community,Conferences", "title_hint": "Developer Advocate", "sal_range": (130000, 200000)},
+    {"skills": "Python,APIs,SQL,Communication,Pre-sales,Demos,Architecture", "title_hint": "Solutions Engineer", "sal_range": (140000, 215000)},
+    {"skills": "Python,SQL,Data Pipelines,Customer-facing,Communication,Problem Solving", "title_hint": "Forward Deployed", "sal_range": (150000, 230000)},
+    # --- More variety ---
+    {"skills": "JavaScript,TypeScript,Three.js,WebGL,WebGPU,Math,Performance,Shaders", "title_hint": "WebGL Engineer", "sal_range": (150000, 230000)},
+    {"skills": "React,TypeScript,CSS,Figma,Animation,Design Systems,Storybook,A11y", "title_hint": "Design Engineer", "sal_range": (150000, 225000)},
+    {"skills": "PostgreSQL,Linux,Backup,Replication,pgBouncer,Performance,Monitoring,SQL", "title_hint": "PostgreSQL DBA", "sal_range": (165000, 250000)},
+    {"skills": "Java,Kotlin,Spring,PostgreSQL,Docker,Microservices,Kafka", "title_hint": "Kotlin Backend", "sal_range": (145000, 220000)},
+    {"skills": "Python,Django,Stripe,REST,PostgreSQL,Redis,Celery,Docker", "title_hint": "Payments Engineer", "sal_range": (155000, 230000)},
+    {"skills": "Elixir,Phoenix,LiveView,PostgreSQL,GraphQL,Testing", "title_hint": "Elixir Full Stack", "sal_range": (145000, 220000)},
+    {"skills": "Go,Kubernetes,Prometheus,Grafana,Linux,Networking,Monitoring", "title_hint": "Observability Engineer", "sal_range": (160000, 240000)},
+    {"skills": "Python,LangChain,Vector DB,RAG,Prompt Engineering,FastAPI,OpenAI", "title_hint": "Applied LLM", "sal_range": (170000, 260000)},
+    {"skills": "Python,Pinecone,Embeddings,RAG,FastAPI,LangChain,Anthropic", "title_hint": "Search & RAG", "sal_range": (170000, 255000)},
+    {"skills": "TypeScript,Next.js,tRPC,Prisma,Tailwind,Vercel,PostgreSQL", "title_hint": "TypeScript Full Stack", "sal_range": (140000, 210000)},
+    {"skills": "Python,SQL,Looker,dbt,BigQuery,Tableau,Stakeholder Communication", "title_hint": "Analytics Lead", "sal_range": (145000, 220000)},
+    {"skills": "Java,Android,Jetpack Compose,Coroutines,Hilt,Room,Testing,CI/CD", "title_hint": "Android Senior", "sal_range": (160000, 240000)},
+    {"skills": "Swift,SwiftUI,UIKit,Combine,Async/Await,XCTest,Fastlane", "title_hint": "iOS Senior", "sal_range": (165000, 245000)},
+    {"skills": "Python,Triton,CUDA,PyTorch,Performance,GPU,Distributed Training", "title_hint": "ML Performance", "sal_range": (185000, 295000)},
+    {"skills": "Python,Kubeflow,MLflow,Kubernetes,GCP,Vertex AI,MLOps", "title_hint": "MLOps Engineer", "sal_range": (165000, 250000)},
+    {"skills": "Python,FastAPI,WebSockets,Redis,PostgreSQL,Docker,Async", "title_hint": "Realtime Backend", "sal_range": (150000, 225000)},
+    {"skills": "Go,Postgres,gRPC,Kubernetes,Helm,Linux,Tracing,Open Telemetry", "title_hint": "Cloud Native", "sal_range": (160000, 245000)},
+    {"skills": "Rust,Tokio,Axum,Postgres,Kafka,Linux,Performance", "title_hint": "Rust Backend", "sal_range": (170000, 260000)},
+    {"skills": "C++,Linux,Storage,Filesystems,Performance,RAID,SAN", "title_hint": "Storage Engineer", "sal_range": (170000, 260000)},
 ]
 
 EDUCATIONS = ["Bachelor", "Bachelor", "Bachelor", "Bachelor", "Master", "Master", "PhD"]
