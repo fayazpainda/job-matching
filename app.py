@@ -139,12 +139,21 @@ def match():
     flocs = d.get("locations", [])
     msal = int(d.get("min_salary", 0))
     topn = int(d.get("top_n", 8))
+    query = str(d.get("query", "")).strip().lower()
 
     filtered = jobs_df.copy()
     if flocs:
         filtered = filtered[filtered["location"].isin(flocs)]
     if msal > 0:
         filtered = filtered[filtered["salary_max"] >= msal]
+    if query:
+        haystack = (
+            filtered["title"].astype(str).str.lower() + " " +
+            filtered["company"].astype(str).str.lower() + " " +
+            filtered["required_skills"].astype(str).str.lower() + " " +
+            filtered["description"].astype(str).str.lower()
+        )
+        filtered = filtered[haystack.str.contains(query, regex=False, na=False)]
     if len(filtered) == 0:
         return jsonify({"error": "No jobs match the current filters."})
 
