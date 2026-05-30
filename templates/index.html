@@ -217,7 +217,7 @@ nav{
 .slider-name.c-amber::before{background:var(--amber)}
 input[type=range]{
   flex:1;-webkit-appearance:none;height:6px;border-radius:4px;
-  background:var(--bg2);outline:none;cursor:pointer;transition:background .2s;
+  outline:none;cursor:pointer;transition:background .2s;
 }
 input[type=range]::-webkit-slider-thumb{
   -webkit-appearance:none;width:18px;height:18px;border-radius:50%;
@@ -226,10 +226,14 @@ input[type=range]::-webkit-slider-thumb{
   cursor:pointer;transition:transform .15s;
 }
 input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
-.s-blue::-webkit-slider-thumb{background:var(--primary)}
-.s-green::-webkit-slider-thumb{background:var(--green)}
-.s-purple::-webkit-slider-thumb{background:var(--violet)}
-.s-amber::-webkit-slider-thumb{background:var(--amber)}
+.s-blue{background:linear-gradient(90deg,var(--primary) 0%,var(--primary) var(--p,50%),var(--bg2) var(--p,50%),var(--bg2) 100%)}
+.s-green{background:linear-gradient(90deg,var(--green) 0%,var(--green) var(--p,20%),var(--bg2) var(--p,20%),var(--bg2) 100%)}
+.s-purple{background:linear-gradient(90deg,var(--violet) 0%,var(--violet) var(--p,15%),var(--bg2) var(--p,15%),var(--bg2) 100%)}
+.s-amber{background:linear-gradient(90deg,var(--amber) 0%,var(--amber) var(--p,15%),var(--bg2) var(--p,15%),var(--bg2) 100%)}
+.s-blue::-webkit-slider-thumb{background:var(--primary);box-shadow:0 2px 6px rgba(79,70,229,.4),0 0 0 1px var(--primary)}
+.s-green::-webkit-slider-thumb{background:var(--green);box-shadow:0 2px 6px rgba(5,150,105,.4),0 0 0 1px var(--green)}
+.s-purple::-webkit-slider-thumb{background:var(--violet);box-shadow:0 2px 6px rgba(124,58,237,.4),0 0 0 1px var(--violet)}
+.s-amber::-webkit-slider-thumb{background:var(--amber);box-shadow:0 2px 6px rgba(217,119,6,.4),0 0 0 1px var(--amber)}
 .slider-val{
   font-size:12px;font-weight:700;width:30px;text-align:right;
   font-variant-numeric:tabular-nums;color:var(--text);
@@ -237,26 +241,56 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
 }
 
 /* Filter selects */
-.filter-stack{display:flex;flex-direction:column;gap:10px}
+.filter-stack{display:flex;flex-direction:column;gap:12px}
 .filter-input{
   width:100%;padding:9px 12px;
   border:1.5px solid var(--border);border-radius:9px;
-  font-size:13px;font-family:inherit;
+  font-size:13px;font-family:inherit;font-variant-numeric:tabular-nums;
   background:var(--surface);color:var(--text);
   transition:all .18s ease;
 }
 .filter-input:hover{border-color:var(--border2)}
 .filter-input:focus{outline:none;border-color:var(--primary);box-shadow:var(--ring)}
+.filter-input::-webkit-outer-spin-button,
+.filter-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.filter-input[type=number]{-moz-appearance:textfield;appearance:textfield}
 select.filter-input[multiple]{height:108px;padding:6px 8px}
-select.filter-input[multiple] option{padding:4px 8px;border-radius:5px}
+select.filter-input[multiple] option{padding:5px 9px;border-radius:5px;font-weight:500}
+select.filter-input[multiple] option:checked{
+  background:var(--primary-soft) linear-gradient(0deg,var(--primary-soft),var(--primary-soft));
+  color:var(--primary-deep);font-weight:600;
+}
 .loc-btn{
-  flex:1;padding:6px 0;
-  border:1.5px solid var(--border);border-radius:7px;
+  padding:3px 10px;
+  border:1px solid var(--border);border-radius:5px;
   background:var(--surface);color:var(--text2);
-  font-size:11.5px;font-weight:600;font-family:inherit;cursor:pointer;
-  transition:all .15s;
+  font-size:10.5px;font-weight:600;font-family:inherit;cursor:pointer;
+  transition:all .15s;letter-spacing:.02em;
 }
 .loc-btn:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-tint)}
+.loc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.loc-actions{display:flex;gap:5px}
+
+/* Mini labeled fields */
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:2px}
+.mini-field{display:flex;flex-direction:column;gap:5px}
+.mini-label{
+  font-size:11px;font-weight:600;color:var(--text2);
+  letter-spacing:.02em;padding-left:2px;
+  display:flex;align-items:center;gap:5px;
+}
+.input-prefix,.input-suffix{position:relative;display:flex;align-items:center}
+.input-prefix .prefix{
+  position:absolute;left:11px;top:50%;transform:translateY(-50%);
+  font-size:13px;font-weight:600;color:var(--text3);pointer-events:none;
+  z-index:1;
+}
+.input-prefix .filter-input{padding-left:22px}
+.input-suffix .suffix{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  font-size:11px;font-weight:500;color:var(--text3);pointer-events:none;
+}
+.input-suffix .filter-input{padding-right:42px}
 
 /* Job search */
 .job-search-wrap{position:relative;margin-bottom:4px}
@@ -277,8 +311,11 @@ select.filter-input[multiple] option{padding:4px 8px;border-radius:5px}
 .job-clear.show{display:flex}
 
 /* GO BUTTON */
-.controls-bottom{display:flex;align-items:center;gap:18px;padding-top:6px;border-top:1px dashed var(--border)}
-.controls-bottom{padding-top:18px}
+.controls-bottom{
+  display:flex;align-items:center;gap:18px;
+  padding-top:20px;margin-top:6px;
+  border-top:1px solid var(--border);
+}
 .go-btn{
   padding:13px 32px;border:none;border-radius:var(--radius);
   background:linear-gradient(135deg,var(--primary) 0%,var(--primary-2) 100%);
@@ -585,23 +622,43 @@ tbody tr:last-child td{border-bottom:none}
       <div class="ctrl-filters">
         <div class="ctrl-label">Filters</div>
         <div class="filter-stack">
-          <div class="job-search-wrap">
-            <svg class="job-search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-            <input class="filter-input job-search" type="text" id="fQuery" placeholder="Search jobs (title, company, skill...)" autocomplete="off">
-            <button type="button" class="job-clear" id="fQueryClear" onclick="clearJobQuery()" title="Clear">&times;</button>
+          <div class="mini-field">
+            <label class="mini-label" for="fQuery">Search jobs</label>
+            <div class="job-search-wrap">
+              <svg class="job-search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+              <input class="filter-input job-search" type="text" id="fQuery" placeholder="Title, company, or skill..." autocomplete="off">
+              <button type="button" class="job-clear" id="fQueryClear" onclick="clearJobQuery()" title="Clear">&times;</button>
+            </div>
           </div>
-          <div style="display:flex;gap:6px;margin-bottom:6px">
-            <button class="loc-btn" onclick="selectAllLocs()">Select All</button>
-            <button class="loc-btn" onclick="clearAllLocs()">Clear All</button>
+          <div class="mini-field">
+            <div class="loc-header">
+              <label class="mini-label" for="fLoc">Locations</label>
+              <div class="loc-actions">
+                <button class="loc-btn" onclick="selectAllLocs()">All</button>
+                <button class="loc-btn" onclick="clearAllLocs()">Clear</button>
+              </div>
+            </div>
+            <select class="filter-input" id="fLoc" multiple title="Hold Ctrl/Cmd to multi-select">
+              {% for loc in locations %}
+              <option value="{{loc}}">{{loc}}</option>
+              {% endfor %}
+            </select>
           </div>
-          <select class="filter-input" id="fLoc" multiple title="Hold Ctrl/Cmd to multi-select">
-            {% for loc in locations %}
-            <option value="{{loc}}">{{loc}}</option>
-            {% endfor %}
-          </select>
-          <div style="display:flex;gap:8px">
-            <input class="filter-input" type="number" id="fSal" value="0" min="0" step="10000" placeholder="Min salary" title="Minimum salary">
-            <input class="filter-input" type="number" id="fTop" value="10" min="3" max="30" title="Number of results">
+          <div class="mini-grid">
+            <div class="mini-field">
+              <label class="mini-label" for="fSal">Min salary</label>
+              <div class="input-prefix">
+                <span class="prefix">$</span>
+                <input class="filter-input pl-22" type="number" id="fSal" value="0" min="0" step="10000" placeholder="0">
+              </div>
+            </div>
+            <div class="mini-field">
+              <label class="mini-label" for="fTop">Show top</label>
+              <div class="input-suffix">
+                <input class="filter-input" type="number" id="fTop" value="10" min="3" max="30">
+                <span class="suffix">jobs</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -791,9 +848,12 @@ function clearAllLocs() {
 
 function updW() {
   ['Sk','Ex','Ed','Lo'].forEach(k => {
-    document.getElementById('v'+k).textContent = document.getElementById('w'+k).value;
+    const el = document.getElementById('w'+k);
+    document.getElementById('v'+k).textContent = el.value;
+    el.style.setProperty('--p', el.value + '%');
   });
 }
+document.addEventListener('DOMContentLoaded', updW);
 
 function scoreColor(s) {
   if (s >= 80) return 'var(--green)';
