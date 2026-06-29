@@ -27,7 +27,13 @@ GOLD = RGBColor(0xE6, 0x9F, 0x00)
 RED = RGBColor(0xC6, 0x28, 0x28)
 ORANGE = RGBColor(0xE6, 0x5C, 0x00)
 
-LOGO_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static", "dut_logo.png")
+LOGO_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static", "dut_logo_black.png")
+SLIDE_W = 13.333                 # inches
+LOGO_AR = 284 / 75               # dut_logo width-to-height ratio
+
+def _logo_centered_left(height):
+    """Left offset (Inches) that horizontally centers the logo on the slide."""
+    return Inches((SLIDE_W - height * LOGO_AR) / 2)
 
 STUDENT_NAME = "PAINDA MOHAMMAD FAYAZ"
 STUDENT_ID = "22511204"
@@ -115,8 +121,10 @@ def add_footer(slide, slide_num):
          align=PP_ALIGN.RIGHT)
 
 
-def add_logo(slide, left=Inches(12.0), top=Inches(0.2), height=Inches(0.5)):
+def add_logo(slide, left=None, top=Inches(0.32), height=Inches(0.42)):
     if os.path.exists(LOGO_PATH):
+        if left is None:  # right-align within the slide with a small margin
+            left = Inches(SLIDE_W - height.inches * LOGO_AR - 0.4)
         slide.shapes.add_picture(LOGO_PATH, left, top, height=height)
 
 
@@ -162,7 +170,7 @@ rect(slide, Inches(0), Inches(2.0), Inches(13.333), Pt(2), PRIMARY)
 rect(slide, Inches(0), Inches(5.6), Inches(13.333), Pt(2), PRIMARY)
 
 if os.path.exists(LOGO_PATH):
-    slide.shapes.add_picture(LOGO_PATH, Inches(5.7), Inches(0.35), height=Inches(0.7))
+    slide.shapes.add_picture(LOGO_PATH, _logo_centered_left(0.7), Inches(0.35), height=Inches(0.7))
 
 text(slide, Inches(1), Inches(1.15), Inches(11.333), Inches(0.5),
      UNIVERSITY, size=16, color=PRIMARY, align=PP_ALIGN.CENTER)
@@ -951,7 +959,7 @@ rect(slide, Inches(0), Inches(2.0), Inches(13.333), Pt(2), PRIMARY)
 rect(slide, Inches(0), Inches(5.8), Inches(13.333), Pt(2), PRIMARY)
 
 if os.path.exists(LOGO_PATH):
-    slide.shapes.add_picture(LOGO_PATH, Inches(5.7), Inches(0.4), height=Inches(0.65))
+    slide.shapes.add_picture(LOGO_PATH, _logo_centered_left(0.65), Inches(0.4), height=Inches(0.65))
 
 text(slide, Inches(1), Inches(1.15), Inches(11.333), Inches(0.45),
      UNIVERSITY, size=15, color=PRIMARY, align=PP_ALIGN.CENTER)
