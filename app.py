@@ -10,13 +10,14 @@ except ImportError:
 
 app = Flask(__name__)
 
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
-LLM_MODEL = os.getenv("LLM_MODEL", "claude-sonnet-4-6")
+LLM_API_KEY = os.getenv("DASHSCOPE_API_KEY")
+LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://dashscope-intl.aliyuncs.com/compatible-mode/v1")
+LLM_MODEL = os.getenv("LLM_MODEL", "qwen-plus")
 
 client = None
-if ANTHROPIC_API_KEY and not ANTHROPIC_API_KEY.startswith("sk-ant-your-"):
-    from anthropic import Anthropic
-    client = Anthropic(api_key=ANTHROPIC_API_KEY)
+if LLM_API_KEY and not LLM_API_KEY.startswith("sk-your-"):
+    from openai import OpenAI
+    client = OpenAI(api_key=LLM_API_KEY, base_url=LLM_BASE_URL)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 jobs_df = pd.read_csv(os.path.join(BASE_DIR, "data", "jobs.csv"))
@@ -69,7 +70,7 @@ def llm_explain(candidate, job, scores):
             f"- Some required skills may need upskilling\n\n"
             f"### Recommendation\n"
             f"Consider scheduling an interview to assess hands-on proficiency in the specific required technologies.\n\n"
-            f"*Connect your Claude API key in `.env` for personalized AI-generated analysis.*"
+            f"*Connect your Qwen (DASHSCOPE_API_KEY) in `.env` for personalized AI-generated analysis.*"
         )
     prompt = f"""You are an experienced HR consultant. Based on the information below, give a concise job match analysis (under 300 words, in Markdown).
 
@@ -100,14 +101,16 @@ Output format:
 ### Recommendation
 (One-sentence action recommendation for the HR team or the candidate)"""
     try:
-        resp = client.messages.create(
+        resp = client.chat.completions.create(
             model=LLM_MODEL, max_tokens=600,
-            system="You are an experienced and concise HR consultant.",
-            messages=[{"role": "user", "content": prompt}],
+            messages=[
+                {"role": "system", "content": "You are an experienced and concise HR consultant."},
+                {"role": "user", "content": prompt},
+            ],
         )
-        return next((b.text for b in resp.content if b.type == "text"), "")
+        return resp.choices[0].message.content or ""
     except Exception as e:
-        return f"Claude API error: {e}"
+        return f"Qwen API error: {e}"
 
 
 @app.route("/")
