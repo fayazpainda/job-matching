@@ -56,21 +56,29 @@ def calc_match(candidate, job, weights):
     }
 
 
+def rule_based_explanation(candidate, job, scores, note):
+    """Deterministic, score-driven summary used when the live LLM is unavailable."""
+    return (
+        f"**{candidate['name']}** is a strong candidate for **{job['title']}** at **{job['company']}** "
+        f"with an overall match score of **{scores['total']}/100**.\n\n"
+        f"### Match Highlights\n"
+        f"- Skills alignment: {scores['skill']}% of required skills matched\n"
+        f"- Experience level: {scores['experience']}% match with {candidate['experience_years']} years of experience\n"
+        f"- Education: {scores['education']}% — meets the {job['education']} requirement\n\n"
+        f"### Main Gaps\n"
+        f"- Location preference ({candidate['preferred_location']}) vs job location ({job['location']}): {scores['location']}% match\n"
+        f"- Some required skills may need upskilling\n\n"
+        f"### Recommendation\n"
+        f"Consider scheduling an interview to assess hands-on proficiency in the specific required technologies.\n\n"
+        f"{note}"
+    )
+
+
 def llm_explain(candidate, job, scores):
     if client is None:
-        return (
-            f"**{candidate['name']}** is a strong candidate for **{job['title']}** at **{job['company']}** "
-            f"with an overall match score of **{scores['total']}/100**.\n\n"
-            f"### Match Highlights\n"
-            f"- Skills alignment: {scores['skill']}% of required skills matched\n"
-            f"- Experience level: {scores['experience']}% match with {candidate['experience_years']} years of experience\n"
-            f"- Education: {scores['education']}% — meets the {job['education']} requirement\n\n"
-            f"### Main Gaps\n"
-            f"- Location preference ({candidate['preferred_location']}) vs job location ({job['location']}): {scores['location']}% match\n"
-            f"- Some required skills may need upskilling\n\n"
-            f"### Recommendation\n"
-            f"Consider scheduling an interview to assess hands-on proficiency in the specific required technologies.\n\n"
-            f"*Connect your Qwen (DASHSCOPE_API_KEY) in `.env` for personalized AI-generated analysis.*"
+        return rule_based_explanation(
+            candidate, job, scores,
+            "*Connect your Qwen (DASHSCOPE_API_KEY) in `.env` for personalized AI-generated analysis.*",
         )
     prompt = f"""You are an experienced HR consultant. Based on the information below, give a concise job match analysis (under 300 words, in Markdown).
 
@@ -108,9 +116,18 @@ Output format:
                 {"role": "user", "content": prompt},
             ],
         )
-        return resp.choices[0].message.content or ""
-    except Exception as e:
-        return f"Qwen API error: {e}"
+        text = (resp.choices[0].message.content or "").strip()
+        return text or rule_based_explanation(
+            candidate, job, scores,
+            "*(Rule-based summary — the AI returned no content.)*",
+        )
+    except Exception:
+        # Live API unreachable (e.g. PythonAnywhere free-tier outbound block).
+        # Degrade gracefully to the deterministic summary instead of an error.
+        return rule_based_explanation(
+            candidate, job, scores,
+            "*Live AI analysis is temporarily unavailable; showing a rule-based summary instead.*",
+        )
 
 
 @app.route("/")
