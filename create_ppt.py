@@ -995,6 +995,76 @@ notes.notes_text_frame.text = (
 )
 
 
+# ── Timed speaker script: overwrite every slide's notes (single source) ──
+SPEAKER_SCRIPT = {
+    1: ("[0:15]  Good morning. I'm Painda Mohammad Fayaz, student 22511204. "
+        "My final project is an LLM-powered intelligent job-matching system that helps "
+        "HR teams match candidates to job openings."),
+    2: ("[0:15]  Here's my outline: the problem and its difficulties, my solution design, "
+        "how I use the LLM, a live demo, and finally results and limitations."),
+    3: ("[0:45]  The scenario is tech-company recruiting. HR teams must match many "
+        "candidates to many job postings, and today it's done manually -- reading each "
+        "resume and comparing it to the job requirements. My users are HR staff and job "
+        "seekers; the goal is fast, explainable matches."),
+    4: ("[0:45]  There are four pain points. It's SLOW -- 5 to 10 minutes per resume. "
+        "It's SUBJECTIVE -- different reviewers judge differently. Traditional systems "
+        "are a BLACK BOX -- one score, no reason. And the right weighting of skills, "
+        "experience, education and location differs for every role."),
+    5: ("[1:00]  My design is a two-layer hybrid. First, a transparent rule-based engine "
+        "scores every candidate-job pair on four weighted dimensions. Then the LLM adds a "
+        "natural-language explanation for the top match. Rules give auditability; the LLM "
+        "adds semantic understanding. Neither alone is enough -- pure rules are rigid, "
+        "pure LLM is a costly black box."),
+    6: ("[1:00]  Each pair is scored 0 to 100 across four dimensions -- skills, "
+        "experience, education, location -- with adjustable weights. The skills score is a "
+        "HYBRID: exact keyword overlap PLUS a scikit-learn TF-IDF cosine-similarity term, "
+        "so related tech stacks earn partial credit. Experience and education are "
+        "proportional; location rewards an exact or remote match."),
+    7: ("[0:45]  I use Qwen -- Alibaba's model -- through an OpenAI-compatible API. After "
+        "the rules rank the jobs, I send the top match and its scores to Qwen, which "
+        "returns a structured analysis: Highlights, Gaps, and a Recommendation. The LLM "
+        "also helped me during development -- module design, UI code generation, and "
+        "debugging."),
+    8: ("[0:30]  >>> DEMO HANDOFF <<<\n"
+        "The whole thing runs in a Jupyter Notebook with ipywidgets. Rather than describe "
+        "it, let me show it live.\n"
+        "ACTION: press Cmd+Tab to the notebook. Confirm 'Qwen API ready: model=qwen-plus' "
+        "is visible at the top."),
+    9: ("[~3:00]  >>> LIVE DEMO -- the most important part <<<\n"
+        "1) Pick a candidate from the dropdown.\n"
+        "2) Click MATCH -- show the Top-5 table and the 4-dimension bar charts.\n"
+        "3) Drag the LOCATION weight up -- the ranking updates live.\n"
+        "4) Scroll to the QWEN ANALYSIS -- read the Highlights / Gaps / Recommendation, "
+        "and stress that this is a LIVE LLM call.\n"
+        "5) (Optional) switch candidate to show the top match adapts.\n"
+        "Then press Cmd+Tab back to PowerPoint.\n"
+        "If the network fails: stay calm, show the llm_explain_match cell and the prompt."),
+    10: ("[0:45]  To summarize, here's how the project maps to each official requirement -- "
+         "complete input-analysis-display-recommendation pipeline, Python + Jupyter, all "
+         "required libraries, four modules with nine controls, fully runnable, and a "
+         "verified live Qwen analysis. Say it as a RECAP, not self-grading."),
+    11: ("[0:45]  Honestly, there are limits. The dataset is synthetic. Skill matching is "
+         "term-level -- TF-IDF gives partial credit but not true synonyms; embeddings "
+         "would fix that. Each LLM call needs internet and takes a few seconds; caching "
+         "would help. And there's no feedback loop yet -- HR ratings could tune the weights."),
+    12: ("[0:30]  In summary: combining rule-based scoring with an LLM gives both "
+         "transparency and intelligence. The result is fast, explainable, interactive job "
+         "matching."),
+    13: ("[Q&A ~5:00]  Thank you -- I'm happy to take questions.\n"
+         "LIKELY QUESTIONS:\n"
+         "- Where is scikit-learn? -> in skill_match_score (cell 6): TF-IDF vectorizer + "
+         "cosine similarity.\n"
+         "- Which model / is it really live? -> qwen-plus via DashScope, OpenAI-compatible; "
+         "yes, a live API call -- I can run it again.\n"
+         "- Why not pure LLM? -> a black box, slow, costs per call; rules give auditable "
+         "scores, the LLM only adds explanation.\n"
+         "- Weaknesses? -> synthetic data and term-level matching; embeddings are the next step."),
+}
+for _idx, _slide in enumerate(prs.slides, start=1):
+    if _idx in SPEAKER_SCRIPT:
+        _slide.notes_slide.notes_text_frame.text = SPEAKER_SCRIPT[_idx]
+
+
 # ── Save ──
 output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                            "Final_Project_Presentation.pptx")
