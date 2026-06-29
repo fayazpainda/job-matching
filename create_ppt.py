@@ -210,7 +210,7 @@ notes.notes_text_frame.text = (
     "Today I will present my final project for the LLM-Assisted Intelligent Decision "
     "Application course.\n"
     "My project is an LLM-Powered Intelligent Job Matching System that combines "
-    "rule-based scoring with Claude AI to help HR teams match candidates to job postings.\n"
+    "rule-based scoring with Qwen to help HR teams match candidates to job postings.\n"
     "The presentation will take approximately 10 minutes, followed by 5 minutes of Q&A."
 )
 
@@ -228,7 +228,7 @@ outline_items = [
     ("02", "Current Difficulties", "Pain points in traditional recruiting"),
     ("03", "Solution Architecture", "Rule-based + LLM hybrid approach"),
     ("04", "Scoring Algorithm", "Four-dimension weighted matching"),
-    ("05", "LLM Integration", "How Claude enhances the system"),
+    ("05", "LLM Integration", "How Qwen enhances the system"),
     ("06", "Interactive Interface", "Jupyter widgets & Flask web app"),
     ("07", "Live Demo Walkthrough", "End-to-end demonstration flow"),
     ("08", "Results & Capabilities", "What the system achieves"),
@@ -404,7 +404,7 @@ pipeline_steps = [
     ("Data Input", "CSV / UI\nSelection", PRIMARY),
     ("Rule Scoring", "4-Dimension\nWeighted Score", TEAL),
     ("Sort & Display", "Table + Charts\n+ Heatmap", GREEN),
-    ("LLM Explain", "Claude Analysis\n& Advice", GOLD),
+    ("LLM Explain", "Qwen Analysis\n& Advice", GOLD),
 ]
 
 for i, (title_str, desc, color) in enumerate(pipeline_steps):
@@ -445,7 +445,7 @@ notes.notes_text_frame.text = (
     "PRESENTER NOTES – Solution Architecture\n\n"
     "Our solution uses a two-layer combination:\n"
     "Layer 1: Rule-based scoring computes a weighted composite across 4 dimensions.\n"
-    "Layer 2: LLM (Claude) generates natural-language explanations for the top match.\n\n"
+    "Layer 2: LLM (Qwen) generates natural-language explanations for the top match.\n\n"
     "Why not pure rules? Transparent but rigid — can’t understand semantic similarity.\n"
     "Why not pure LLM? Flexible but opaque, expensive, unreliable.\n"
     "Our hybrid gives auditable quantitative scores plus human-readable AI insights."
@@ -512,7 +512,7 @@ notes.notes_text_frame.text = (
     "2. Experience (20%): full score if meets minimum years; proportional otherwise.\n"
     "3. Education (15%): maps degrees to numeric levels.\n"
     "4. Location (15%): exact=1.0, remote=0.7, different city=0.3.\n\n"
-    "The 0.3 for location mismatch was suggested by Claude to preserve remote options.\n"
+    "The 0.3 for location mismatch was suggested by Qwen to preserve remote options.\n"
     "All weights are user-adjustable and auto-normalized to sum to 1."
 )
 
@@ -523,7 +523,7 @@ notes.notes_text_frame.text = (
 slide = prs.slides.add_slide(prs.slide_layouts[6])
 set_bg(slide, OFF_WHITE)
 slide_header(slide, "5. LLM Integration",
-             "Claude API for semantic analysis and natural-language recommendations")
+             "Qwen API for semantic analysis and natural-language recommendations")
 add_footer(slide, 7)
 
 stages_data = [
@@ -565,7 +565,7 @@ prompt_items = [
     ("Output Format", "3-section Markdown:\n   ✅ Match Highlights (2–3 bullets)\n"
                       "   ⚠️ Main Gaps (2–3 bullets)\n"
                       "   \U0001f4a1 Recommendation (1 sentence)"),
-    ("Model", "claude-opus-4-8 (configurable via LLM_MODEL env var)"),
+    ("Model", "qwen-plus (configurable via LLM_MODEL env var)"),
     ("Token Limit", "max_tokens: 600 (cost control)"),
     ("Cost Estimate", "~10 calls for demo, ~600 tokens each, ~$0.15 USD"),
 ]
@@ -580,7 +580,7 @@ for i, (label, value) in enumerate(prompt_items):
 notes = slide.notes_slide
 notes.notes_text_frame.text = (
     "PRESENTER NOTES – LLM Integration\n\n"
-    "Claude is used throughout the project lifecycle, not just at runtime:\n"
+    "Qwen is used throughout the project lifecycle, not just at runtime:\n"
     "- Design: decomposed into input/analysis/display/recommendation modules\n"
     "- Code generation: ipywidgets UI and matplotlib charts\n"
     "- Debugging: font display, weight normalization, CSV parsing\n"
@@ -618,7 +618,7 @@ controls = [
     "•  Location filter (multi-select, 10 cities + Remote)",
     "•  Minimum salary filter ($0 – $300K)",
     "•  Top-N control (3 – 15 results)",
-    "•  LLM analysis toggle (enable/disable Claude)",
+    "•  LLM analysis toggle (enable/disable Qwen)",
 ]
 
 txBox = slide.shapes.add_textbox(Inches(1.1), Inches(2.1), Inches(5.0), Inches(4.0))
@@ -639,7 +639,7 @@ web_features = [
     "•  Interactive weight adjustment",
     "•  Location & salary filtering",
     "•  Score-colored result cards",
-    "•  Claude AI analysis on demand",
+    "•  Qwen analysis on demand",
     "•  Runs on localhost:5000",
 ]
 
@@ -656,7 +656,7 @@ tech_card = rounded_rect(slide, Inches(6.8), Inches(4.95), Inches(5.7), Inches(1
 
 tech_items = [
     ("Python", "pandas, numpy, scikit-learn, matplotlib"),
-    ("LLM", "Anthropic Claude API (claude-opus-4-8)"),
+    ("LLM", "Qwen (DashScope) API (qwen-plus)"),
     ("UI", "ipywidgets + Flask + HTML/JS"),
     ("Data", "CSV (jobs.csv, candidates.csv)"),
 ]
@@ -676,7 +676,7 @@ notes.notes_text_frame.text = (
     "weight adjustment, location filter, salary filter, and LLM toggle.\n"
     "2. Flask Web App (alternative): modern web UI on localhost:5000 with AJAX-powered "
     "real-time matching.\n\n"
-    "Tech stack: Python (pandas, numpy, scikit-learn, matplotlib), Anthropic Claude API, "
+    "Tech stack: Python (pandas, numpy, scikit-learn, matplotlib), Qwen (DashScope) API, "
     "ipywidgets + Flask."
 )
 
@@ -701,7 +701,7 @@ demo_steps = [
      "Location-matched jobs jump to the top", GREEN),
     ("Step 4", "Apply Filters", 'Filter to "San Francisco, CA" only',
      "Live filtering narrows results instantly", GOLD),
-    ("Step 5", "View AI Analysis", "Show Claude-generated explanation",
+    ("Step 5", "View AI Analysis", "Show Qwen-generated explanation",
      "Highlights / Gaps / Recommendation output", PRIMARY),
     ("Step 6", "Switch Candidate", 'Change to "Harper Scott" (LLM engineer)',
      "Top 1 auto-changes to LLM Engineer roles", TEAL),
@@ -736,7 +736,7 @@ notes.notes_text_frame.text = (
     "2. Default weights – Senior Python Backend Engineer at ~90 score.\n"
     "3. Raise Location weight – location-matched jobs rise.\n"
     "4. Filter to San Francisco – live filtering.\n"
-    "5. Show Claude AI analysis – highlights/gaps/recommendation.\n"
+    "5. Show Qwen analysis – highlights/gaps/recommendation.\n"
     "6. Switch to Harper Scott – top results change to LLM roles.\n\n"
     "This showcases scoring, weight adjustment, filtering, visualization, and LLM analysis."
 )
@@ -757,7 +757,7 @@ capabilities = [
      TEAL),
     ("Live\nInteractivity", "9 controls with instant\nupdates and filtering",
      GREEN),
-    ("AI\nExplanation", "Natural-language recommendation\nrationale via Claude",
+    ("AI\nExplanation", "Natural-language recommendation\nrationale via Qwen",
      GOLD),
 ]
 
@@ -806,7 +806,7 @@ notes.notes_text_frame.text = (
     "1. Quantitative matching across 4 dimensions with adjustable weights\n"
     "2. Dual-view visualization: bar charts and global heatmap\n"
     "3. Live interactivity with 9 controls\n"
-    "4. AI-powered explanations via Claude\n\n"
+    "4. AI-powered explanations via Qwen\n\n"
     "All five assignment requirements are met — complete pipeline, Python + Jupyter, "
     "required libraries, all four modules, and fully runnable code."
 )
@@ -909,7 +909,7 @@ takeaways = [
      "All assignment requirements met with runnable, end-to-end code.",
      TEAL),
     ("Practical LLM Usage",
-     "Claude is used across the full project lifecycle: design, coding,\n"
+     "Qwen is used across the full project lifecycle: design, coding,\n"
      "debugging, runtime analysis, and optimization. The runtime prompt\n"
      "is carefully engineered for structured, cost-effective output.",
      GREEN),
@@ -1002,7 +1002,7 @@ notes.notes_text_frame.text = (
     "To try the system:\n"
     "1. Clone the project folder\n"
     "2. pip install -r requirements.txt\n"
-    "3. Add your Anthropic API key to .env\n"
+    "3. Add your DashScope API key to .env\n"
     "4. jupyter notebook job_matching.ipynb\n"
     "5. Or: python app.py (web interface at localhost:5000)\n\n"
     "Contact: fayazpainda@mail.dlut.edu.cn"

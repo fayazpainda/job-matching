@@ -30,15 +30,15 @@ cd ~/Desktop/Final\ Project
 pip install -r requirements.txt
 ```
 
-### 2. Configure Anthropic Claude API Key
-1. Sign up / log in at **https://console.anthropic.com/**
-2. Create an API key: **https://console.anthropic.com/settings/keys** → "Create Key" → copy `sk-ant-...`
-3. Top up: **Settings → Billing** (new accounts usually get free credit, enough for this demo)
+### 2. Configure the Qwen (DashScope) API Key
+The LLM is Alibaba Cloud's **Qwen** via the OpenAI-compatible DashScope endpoint (free tier, no foreign card needed).
+1. Sign up / log in at **https://bailian.console.aliyun.com/**
+2. Open **API-KEY** → create a key → copy the `sk-...` value
+3. New accounts get a free token quota — enough for this demo
 
 ```bash
-cd ~/Desktop/Final\ Project
 cp .env.example .env
-open -e .env             # Edit in TextEdit, replace sk-ant-your-key-here with your real key
+open -e .env             # Replace sk-your-key-here with your real DashScope key
 ```
 
 **Test the API key**:
@@ -46,16 +46,18 @@ open -e .env             # Edit in TextEdit, replace sk-ant-your-key-here with y
 python3 -c "
 import os
 from dotenv import load_dotenv
-from anthropic import Anthropic
+from openai import OpenAI
 load_dotenv()
-c = Anthropic(api_key=os.getenv('ANTHROPIC_API_KEY'))
-r = c.messages.create(model='claude-opus-4-7', max_tokens=20, messages=[{'role':'user','content':'Reply with: success'}])
-print('Claude:', r.content[0].text)
+c = OpenAI(api_key=os.getenv('DASHSCOPE_API_KEY'),
+           base_url='https://dashscope.aliyuncs.com/compatible-mode/v1')
+r = c.chat.completions.create(model='qwen-plus', max_tokens=20,
+        messages=[{'role':'user','content':'Reply with: success'}])
+print('Qwen:', r.choices[0].message.content)
 "
 ```
 
 > If you don't have an API key yet, the notebook still runs — the LLM section shows mock responses.
-> **Cost estimate**: ~10 Claude calls for the demo, ~600 tokens each, total ~$0.15 USD.
+> **Cost estimate**: ~10 Qwen calls for the demo, ~600 tokens each — covered by the free tier.
 
 ### 3. Launch Jupyter
 ```bash
@@ -113,7 +115,7 @@ The assignment requires answering 5 questions. Use these as a script:
 **LLM prompt design at runtime**:
 - Role setup: *"You are an experienced and concise HR consultant"*
 - Structured output: three-section Markdown (✅ highlights / ⚠️ gaps / 💡 recommendation)
-- Model: `claude-opus-4-7` (configurable via `LLM_MODEL` env var)
+- Model: `qwen-plus` (configurable via `LLM_MODEL` env var)
 - `max_tokens: 600` to control cost
 
 ### 5. How well does it work?
@@ -123,7 +125,7 @@ The assignment requires answering 5 questions. Use these as a script:
 2. Run with default weights → Top 5 shows Senior Python Backend Engineer jobs at ~90 score
 3. Raise the **Location** weight → location-matched jobs jump to top
 4. Filter to `San Francisco, CA` only → live filtering
-5. Show the Claude-generated "highlights / gaps / recommendation" output
+5. Show the Qwen-generated "highlights / gaps / recommendation" output
 6. Switch candidate to `Harper Scott` (LLM engineer) → Top 1 auto-changes to LLM Engineer roles
 
 **Capabilities demonstrated**:
