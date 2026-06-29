@@ -287,8 +287,8 @@ card(slide, Inches(4.8), Inches(3.0), Inches(3.7), Inches(1.5),
 
 card(slide, Inches(8.8), Inches(3.0), Inches(3.7), Inches(1.5),
      "Data Scale", [
-         "• 77 job postings (LinkedIn-style)",
-         "• 26 candidate profiles",
+         "• 1,070 job postings (LinkedIn-style)",
+         "• 153 candidate profiles",
          "• 15+ tech categories covered"
      ], GOLD)
 
@@ -314,8 +314,8 @@ notes.notes_text_frame.text = (
     "resumes and need to match them against open job postings.\n"
     "Currently, each resume takes 5–10 minutes to manually compare against job "
     "requirements.\n"
-    "Our dataset covers 77 jobs across major tech companies like Google, Meta, Amazon, "
-    "OpenAI, and Anthropic, with 26 candidate profiles spanning backend, frontend, "
+    "Our dataset covers 1,070 jobs across major tech companies like Google, Meta, Amazon, "
+    "OpenAI, and Anthropic, with 153 candidate profiles spanning backend, frontend, "
     "AI/ML, and DevOps roles.\n"
     "The system scores candidates across 4 dimensions: skills, experience, education, "
     "and location."
@@ -455,8 +455,8 @@ add_footer(slide, 6)
 
 dimensions = [
     ("Skills Match", "50%",
-     "|cand_skills ∩ job_skills|\n/ |job_skills|",
-     "Keyword intersection ratio\nof candidate vs. required skills", PRIMARY),
+     "keyword overlap + TF-IDF\ncosine similarity (scikit-learn)",
+     "Hybrid: exact keyword overlap,\nwith TF-IDF cosine for related skills", PRIMARY),
     ("Experience", "20%",
      "1.0 if cand_exp ≥ job_min\nelse proportional",
      "Full score if meets minimum;\npartial credit otherwise", TEAL),
@@ -499,7 +499,8 @@ notes = slide.notes_slide
 notes.notes_text_frame.text = (
     "PRESENTER NOTES – Scoring Algorithm\n\n"
     "Each candidate–job pair is scored on four dimensions, normalized to 0–1:\n\n"
-    "1. Skills Match (50%): intersection of candidate and required skills.\n"
+    "1. Skills Match (50%): hybrid score = exact keyword overlap, with a scikit-learn "
+    "TF-IDF + cosine-similarity term filling the gap so related stacks earn partial credit.\n"
     "2. Experience (20%): full score if meets minimum years; proportional otherwise.\n"
     "3. Education (15%): maps degrees to numeric levels.\n"
     "4. Location (15%): exact=1.0, remote=0.7, different city=0.3.\n\n"
@@ -556,7 +557,7 @@ prompt_items = [
     ("Output Format", "3-section Markdown:\n   ✅ Match Highlights (2–3 bullets)\n"
                       "   ⚠️ Main Gaps (2–3 bullets)\n"
                       "   \U0001f4a1 Recommendation (1 sentence)"),
-    ("Model", "claude-opus-4-7 (configurable via LLM_MODEL env var)"),
+    ("Model", "claude-opus-4-8 (configurable via LLM_MODEL env var)"),
     ("Token Limit", "max_tokens: 600 (cost control)"),
     ("Cost Estimate", "~10 calls for demo, ~600 tokens each, ~$0.15 USD"),
 ]
@@ -601,7 +602,7 @@ nb_card = rounded_rect(slide, Inches(0.8), Inches(1.85), Inches(5.5), Inches(4.5
 rect(slide, Inches(0.8), Inches(1.85), Inches(5.5), Pt(4), PRIMARY)
 
 controls = [
-    "•  Candidate selector dropdown (26 candidates)",
+    "•  Candidate selector dropdown (153 candidates)",
     "•  Skills weight slider (0.0 – 1.0)",
     "•  Experience weight slider (0.0 – 1.0)",
     "•  Education weight slider (0.0 – 1.0)",
@@ -647,7 +648,7 @@ tech_card = rounded_rect(slide, Inches(6.8), Inches(4.95), Inches(5.7), Inches(1
 
 tech_items = [
     ("Python", "pandas, numpy, scikit-learn, matplotlib"),
-    ("LLM", "Anthropic Claude API (claude-opus-4-7)"),
+    ("LLM", "Anthropic Claude API (claude-opus-4-8)"),
     ("UI", "ipywidgets + Flask + HTML/JS"),
     ("Data", "CSV (jobs.csv, candidates.csv)"),
 ]
@@ -816,10 +817,10 @@ text(slide, Inches(0.8), Inches(1.4), Inches(5.5), Inches(0.35),
      "Current Limitations", size=17, color=RED, bold=True)
 
 limitations = [
-    ("Keyword-Level Matching",
-     "Skills matching doesn’t recognize\nReact ↔ Vue as related frameworks"),
-    ("Limited Sample Size",
-     "Only ~80 jobs and ~25 candidates;\nnot validated against real resumes"),
+    ("Term-Level Matching",
+     "TF-IDF captures shared context but not\ntrue synonyms (React ≈ Vue)"),
+    ("Synthetic Dataset",
+     "1,070 jobs / 153 candidates are generated;\nnot validated against real resumes"),
     ("LLM Latency & Cost",
      "Each API call takes 2–5 seconds;\nrequires internet connection"),
     ("No Learning Feedback",
@@ -871,8 +872,8 @@ notes = slide.notes_slide
 notes.notes_text_frame.text = (
     "PRESENTER NOTES – Limitations & Future Work\n\n"
     "Limitations:\n"
-    "1. Keyword matching – doesn’t understand React ≈ Vue. Solution: embeddings.\n"
-    "2. Small sample – 80 jobs, 25 candidates. Needs real databases.\n"
+    "1. Term matching – TF-IDF gives partial credit but not true synonyms (React ≈ Vue). Solution: embeddings.\n"
+    "2. Synthetic sample – 1,070 jobs, 153 candidates, all generated. Needs real databases.\n"
     "3. LLM latency – 2–5 sec per call. Could cache common combinations.\n"
     "4. No learning loop – doesn’t improve from HR feedback.\n\n"
     "Future work: semantic embeddings, resume parsing, bidirectional matching, "
