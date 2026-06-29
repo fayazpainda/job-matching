@@ -750,31 +750,14 @@ set_bg(slide, OFF_WHITE)
 slide_header(slide, "8. Results & Capabilities", "What the system achieves")
 add_footer(slide, 10)
 
-capabilities = [
-    ("Quantitative\nMatching", "4-dimension weighted scoring\nwith auto-normalization",
-     PRIMARY),
-    ("Clean\nVisualization", "Dual bar charts (total +\nbreakdown) + global heatmap",
-     TEAL),
-    ("Live\nInteractivity", "9 controls with instant\nupdates and filtering",
-     GREEN),
-    ("AI\nExplanation", "Natural-language recommendation\nrationale via Qwen",
-     GOLD),
-]
+text(slide, Inches(0.8), Inches(1.7), Inches(11.733), Inches(0.45),
+     "Assignment Requirements Checklist", size=24, color=PRIMARY_DARK, bold=True)
 
-for i, (title_str, desc, color) in enumerate(capabilities):
-    left = Inches(0.6 + i * 3.15)
-    rounded_rect(slide, left, Inches(1.45), Inches(2.95), Inches(2.15), WHITE,
-                 border_color=BORDER_GRAY)
-    rect(slide, left, Inches(1.45), Inches(2.95), Inches(0.7), color)
-    text(slide, left + Inches(0.15), Inches(1.5), Inches(2.65), Inches(0.6),
-         title_str, size=15, color=WHITE, bold=True, align=PP_ALIGN.CENTER)
-    text(slide, left + Inches(0.15), Inches(2.3), Inches(2.65), Inches(1.0),
-         desc, size=13, color=SUBTITLE_TEXT, align=PP_ALIGN.CENTER)
+text(slide, Inches(0.8), Inches(2.35), Inches(11.733), Inches(0.35),
+     "How the project maps to each official requirement", size=14,
+     color=SUBTITLE_TEXT, italic=True)
 
-text(slide, Inches(0.8), Inches(3.95), Inches(11.5), Inches(0.35),
-     "Assignment Requirements Checklist", size=18, color=PRIMARY_DARK, bold=True)
-
-rounded_rect(slide, Inches(0.8), Inches(4.4), Inches(11.733), Inches(2.3),
+rounded_rect(slide, Inches(0.8), Inches(2.95), Inches(11.733), Inches(3.55),
              WHITE, border_color=BORDER_GRAY)
 
 requirements = [
@@ -787,28 +770,31 @@ requirements = [
      "✅ Modules 1–4 with 9 controls"),
     ("Not chat logs, static docs, or non-runnable code",
      "✅ Fully runnable end-to-end"),
+    ("LLM-assisted decision support (live)",
+     "✅ Qwen analysis verified working"),
 ]
 
 for i, (req, status) in enumerate(requirements):
-    y = Inches(4.5 + i * 0.4)
+    y = Inches(3.15 + i * 0.55)
     if i % 2 == 0:
-        rounded_rect(slide, Inches(0.85), y, Inches(11.633), Inches(0.38),
+        rounded_rect(slide, Inches(0.95), y, Inches(11.433), Inches(0.5),
                       PRIMARY_LIGHT)
-    text(slide, Inches(1.0), y + Inches(0.06), Inches(7.0), Inches(0.28),
-         req, size=12, color=DARK_TEXT)
-    text(slide, Inches(8.2), y + Inches(0.06), Inches(4.0), Inches(0.28),
-         status, size=12, color=GREEN, bold=True)
+    text(slide, Inches(1.15), y + Inches(0.09), Inches(7.2), Inches(0.32),
+         req, size=15, color=DARK_TEXT)
+    text(slide, Inches(8.6), y + Inches(0.09), Inches(3.8), Inches(0.32),
+         status, size=15, color=GREEN, bold=True)
 
 notes = slide.notes_slide
 notes.notes_text_frame.text = (
     "PRESENTER NOTES – Results & Capabilities\n\n"
-    "Four key capabilities:\n"
-    "1. Quantitative matching across 4 dimensions with adjustable weights\n"
-    "2. Dual-view visualization: bar charts and global heatmap\n"
-    "3. Live interactivity with 9 controls\n"
-    "4. AI-powered explanations via Qwen\n\n"
-    "All five assignment requirements are met — complete pipeline, Python + Jupyter, "
-    "required libraries, all four modules, and fully runnable code."
+    "To summarize, here is how the project maps to each official requirement.\n"
+    "(Frame this as a recap, not self-grading.)\n\n"
+    "Every requirement is met: complete input->analysis->display->recommendation "
+    "pipeline, Python + Jupyter Notebook, all required libraries (pandas, matplotlib, "
+    "scikit-learn, ipywidgets), all four modules with 9 interactive controls, fully "
+    "runnable end-to-end, and a live LLM (Qwen) analysis I verified is working.\n\n"
+    "Pause on the last row — the live Qwen call is the core deliverable and it runs in "
+    "the demo."
 )
 
 
